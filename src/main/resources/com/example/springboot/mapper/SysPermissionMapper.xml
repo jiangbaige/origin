@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.springboot.mapper.SysPermissionMapper">
+
+    <select id="selectPermissionByUserId" resultType="java.lang.String" parameterType="java.lang.Long">
+        SELECT distinct spu.permission
+        FROM sys_permission AS spu
+        inner join sys_role_permission srp on spu.id = srp.permission_id
+        inner join sys_user_role sur on sur.role_id = srp.role_id
+        WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND sur.user_id = #{userId}
+        </if>
+    </select>
+
+</mapper>
